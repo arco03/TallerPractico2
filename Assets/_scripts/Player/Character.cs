@@ -15,12 +15,16 @@ namespace _scripts.Player
         [SerializeField] private float sprintDuration;
         [SerializeField] private float rechargeSprintTime;
         [SerializeField] private float rotationX;
-
+        [SerializeField] private float hungerSpeed;
+        [SerializeField] private float hungerDuration;
+        
+        [HideInInspector] public float currentEnergy;
+        [HideInInspector] public bool canRun = true;
         private Transform _playerCamera;
         private Rigidbody _rb;
         private float _currentSpeed;
-        [HideInInspector] public float currentEnergy;
-        [HideInInspector] public bool canRun = true;
+        private bool _isHungry = false;
+        private float _hungerTimer;
 
         private void Awake()
         {
@@ -32,6 +36,7 @@ namespace _scripts.Player
 
             _currentSpeed = normalSpeed;
             currentEnergy = sprintDuration;
+            _hungerTimer = hungerDuration;
         }
     
         public void Rotation(float mouseX, float mouseY)
@@ -52,22 +57,25 @@ namespace _scripts.Player
             _rb.velocity = newSpeed;
         }
 
-        public void CanRun()
+        public void CanSprint()
         {
-            _currentSpeed = sprintSpeed;
-            currentEnergy -= Time.deltaTime;
-
-            if (currentEnergy <= 0)
+            if (!_isHungry)
             {
-                currentEnergy = 0;
-                canRun = false;
-                _currentSpeed = normalSpeed;
+                _currentSpeed = sprintSpeed;
+                currentEnergy -= Time.deltaTime;
+
+                if (currentEnergy <= 0)
+                {
+                    currentEnergy = 0;
+                    canRun = false;
+                    _currentSpeed = normalSpeed;
+                }
             }
         }
         
-        public void CantRun()
+        public void CantSprint()
         {
-            _currentSpeed = normalSpeed;
+            _currentSpeed = _isHungry ? hungerSpeed : normalSpeed;
             
             if (currentEnergy < sprintDuration)
             {
@@ -78,6 +86,30 @@ namespace _scripts.Player
                     canRun = true;
                 }
             }
+        }
+
+        public void HungerManager()
+        {
+            _hungerTimer -= Time.deltaTime;
+            if (_hungerTimer <= 0 && !_isHungry)
+            {
+                BecomeHungry();
+            }
+        }
+
+        public void BecomeHungry()
+        {
+            _isHungry = true;
+            _currentSpeed = hungerSpeed;
+            canRun = false;
+        }
+
+        public void Eat()
+        {
+            _isHungry = false;
+            _hungerTimer = hungerDuration;
+            _currentSpeed = normalSpeed;
+            canRun = true;
         }
     }
 }

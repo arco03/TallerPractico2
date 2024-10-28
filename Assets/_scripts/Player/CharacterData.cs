@@ -6,7 +6,7 @@ namespace _scripts.Player
     public class CharacterData : ScriptableObject
     {
         public string playerName;
-        public float playerHunger;
+        
         
     }
 }

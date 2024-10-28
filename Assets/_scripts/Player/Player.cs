@@ -26,16 +26,17 @@ namespace _scripts.Player
             _mY = Input.GetAxis(mouseY) * mouseSensibility;
             
             character.Rotation(_mX, _mY);
+            character.HungerManager();
 
             if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift) && character.canRun &&
                 character.currentEnergy > 0)
             {
-                character.CanRun();
+                character.CanSprint();
             }
             else
-                character.CantRun();
+                character.CantSprint();
         }
-
+    
         private void FixedUpdate()
         {
             character.Move(_x,_y);
