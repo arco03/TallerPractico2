@@ -1,9 +1,7 @@
-using System;
 using UnityEngine;
 
-namespace _scripts
+namespace _scripts.Player
 {
-    //have player inputs
     public class Player : MonoBehaviour
     {
         [Header("Control Settings")] 
@@ -12,6 +10,7 @@ namespace _scripts
         [SerializeField] private string mouseX;
         [SerializeField] private string mouseY;
         
+        [Header("Other Settings")]
         [SerializeField] private float mouseSensibility;
         [SerializeField] private Character character;
 
@@ -27,6 +26,14 @@ namespace _scripts
             _mY = Input.GetAxis(mouseY) * mouseSensibility;
             
             character.Rotation(_mX, _mY);
+
+            if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.LeftShift) && character.canRun &&
+                character.currentEnergy > 0)
+            {
+                character.CanRun();
+            }
+            else
+                character.CantRun();
         }
 
         private void FixedUpdate()
