@@ -14,7 +14,9 @@ namespace _scripts.Player
         [SerializeField] private float rechargeSprintTime;
         [SerializeField] private float rotationX;
         [SerializeField] private float hungerSpeed;
-        [SerializeField] private float hungerDuration;
+
+         public float HungerDuration { get; set; }
+        
         
         [HideInInspector] public float currentEnergy;
         [HideInInspector] public bool canRun = true;
@@ -34,7 +36,7 @@ namespace _scripts.Player
 
             _currentSpeed = normalSpeed;
             currentEnergy = sprintDuration;
-            _hungerTimer = hungerDuration;
+            _hungerTimer = HungerDuration;
         }
     
         public void Rotation(float mouseX, float mouseY)
@@ -105,9 +107,17 @@ namespace _scripts.Player
         public void Eat()
         {
             _isHungry = false;
-            _hungerTimer = hungerDuration;
+            _hungerTimer = HungerDuration;
             _currentSpeed = normalSpeed;
             canRun = true;
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            if (other.gameObject.TryGetComponent(out IInteract component))
+            {
+                //component.Interact();
+            }
         }
     }
 }
