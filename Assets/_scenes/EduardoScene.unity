@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2159.1633, g: 2263.6077, b: 3287.313, a: 1}
+  m_IndirectSpecularColor: {r: 2158.3586, g: 2262.9065, b: 3286.4575, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -510,8 +510,8 @@ GameObject:
   - component: {fileID: 873496150}
   - component: {fileID: 873496149}
   m_Layer: 0
-  m_Name: Capsule
-  m_TagString: Untagged
+  m_Name: Player
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -618,12 +618,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83929c0a130ac5741ba8646947937dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontal: 
-  vertical: 
-  mouseX: 
-  mouseY: 
-  mouseSensibility: 0
-  character: {fileID: 0}
+  horizontal: Horizontal
+  vertical: Vertical
+  mouseX: Mouse X
+  mouseY: Mouse Y
+  mouseSensibility: 10
+  character: {fileID: 873496150}
 --- !u!114 &873496150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -636,13 +636,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c95d308265a1aa647b1e3cb9b8ee8e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  normalSpeed: 0
-  sprintSpeed: 0
-  sprintDuration: 0
-  rechargeSprintTime: 0
-  rotationX: 0
-  hungerSpeed: 0
-  hungerDuration: 0
+  normalSpeed: 5
+  sprintSpeed: 15
+  sprintDuration: 8
+  rechargeSprintTime: 3
+  rotationX: 5
+  hungerSpeed: 5
   currentEnergy: 0
   canRun: 1
 --- !u!54 &873496151
