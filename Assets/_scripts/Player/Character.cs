@@ -95,7 +95,7 @@ namespace _scripts.Player
             }
         }
 
-        public void BecomeHungry()
+        private void BecomeHungry()
         {
             _isHungry = true;
             _currentSpeed = hungerSpeed;

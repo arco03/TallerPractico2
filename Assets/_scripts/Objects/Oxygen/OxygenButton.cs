@@ -1,16 +1,15 @@
 using UnityEngine;
 
-namespace _scripts.Player
+namespace _scripts.Objects.Oxygen
 {
-    public class Food : MonoBehaviour
+    public class OxygenButton : MonoBehaviour
     {
-        [SerializeField] private Character character;
+        [SerializeField] private Oxygen oxygen;
         private void OnCollisionEnter(Collision other)
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                character.Eat();
-                Destroy(this.gameObject);
+                oxygen.RechargeOxygen();
             }
         }
     }
