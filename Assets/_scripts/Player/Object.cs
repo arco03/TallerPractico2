@@ -6,7 +6,7 @@ namespace _scripts.Player
     {
         public void Interact(IPlayerContext context)
         {
-            context.SetFood(100f);
+            context.SetFood();
             Destroy(gameObject);
         }
 

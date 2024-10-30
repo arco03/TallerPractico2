@@ -23,7 +23,7 @@ namespace _scripts.Player
             return character.hungerDuration;
         }
 
-        public void SetFood(float food)
+        public void SetFood()
         {
             character.Eat();
         }

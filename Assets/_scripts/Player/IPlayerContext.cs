@@ -7,7 +7,7 @@ namespace _scripts.Player
         float GetEnergy();
         void SetEnergy(float amount);
         float GetFood();
-        void SetFood(float food);
+        void SetFood();
     }
     
     
