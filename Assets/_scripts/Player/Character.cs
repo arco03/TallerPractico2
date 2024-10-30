@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _scripts.Player
 {
@@ -14,17 +15,15 @@ namespace _scripts.Player
         [SerializeField] private float rechargeSprintTime;
         [SerializeField] private float rotationX;
         [SerializeField] private float hungerSpeed;
-
-         public float HungerDuration { get; set; }
-        
-        
         [HideInInspector] public float currentEnergy;
         [HideInInspector] public bool canRun = true;
+        public float hungerDuration;
         private Transform _playerCamera;
         private Rigidbody _rb;
+        private IPlayerContext context;
         private float _currentSpeed;
         private bool _isHungry = false;
-        private float _hungerTimer;
+         [SerializeField]private float hungerTimer;
 
         private void Awake()
         {
@@ -33,10 +32,16 @@ namespace _scripts.Player
             
             Cursor.lockState = CursorLockMode.Locked;
             _playerCamera = Camera.main?.transform;
-
+            
+            context = GetComponent<PlayerContext>(); 
+            if (context == null)
+            {
+                Debug.LogError("PlayerContext not found on Player.");
+            }
+            
             _currentSpeed = normalSpeed;
             currentEnergy = sprintDuration;
-            _hungerTimer = HungerDuration;
+            hungerTimer = hungerDuration;
         }
     
         public void Rotation(float mouseX, float mouseY)
@@ -90,8 +95,8 @@ namespace _scripts.Player
 
         public void HungerManager()
         {
-            _hungerTimer -= Time.deltaTime;
-            if (_hungerTimer <= 0 && !_isHungry)
+            hungerTimer -= Time.deltaTime;
+            if (hungerTimer <= 0 && !_isHungry)
             {
                 BecomeHungry();
             }
@@ -107,7 +112,7 @@ namespace _scripts.Player
         public void Eat()
         {
             _isHungry = false;
-            _hungerTimer = HungerDuration;
+            hungerTimer = hungerDuration;
             _currentSpeed = normalSpeed;
             canRun = true;
         }
@@ -116,7 +121,10 @@ namespace _scripts.Player
         {
             if (other.gameObject.TryGetComponent(out IInteract component))
             {
-                //component.Interact();
+                if (context != null) 
+                    component.Interact(context);
+                else
+                    Debug.LogWarning("Context is null, cannot interact.");
             }
         }
     }
