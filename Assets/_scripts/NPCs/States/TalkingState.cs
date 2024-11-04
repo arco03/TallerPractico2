@@ -1,13 +1,15 @@
+using UnityEngine;
+
 namespace _scripts.NPCs.States
 {
     public class TalkingState : INpcState
     {
-        public void EnterState()
+        public void EnterState(Npc npc)
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Entró al estado de Talking");
         }
 
-        public void UpdateState()
+        public void UpdateState(Npc npc)
         {
             throw new System.NotImplementedException();
         }

@@ -2,8 +2,8 @@ namespace _scripts.NPCs
 {
     public interface INpcState
     {
-        void EnterState();
-        void UpdateState();
+        void EnterState(Npc npc);
+        void UpdateState(Npc npc);
         void ExitState();
     }
 }
